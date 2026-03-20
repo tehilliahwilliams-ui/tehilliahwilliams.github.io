@@ -1,0 +1,900 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Williams Darasimi — Content Strategist</title>
+<link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,600;1,300;1,400&family=DM+Sans:wght@300;400;500&display=swap" rel="stylesheet">
+<style>
+  :root {
+    --bg:          #ffffff;
+    --bg-alt:      #f6f4f0;
+    --bg-navy:     #0f2044;
+    --navy:        #0f2044;
+    --navy-mid:    #1e3a6e;
+    --beige:       #ede9e1;
+    --grey:        #e8e6e1;
+    --text:        #0f2044;
+    --text-mid:    #3d4f6e;
+    --text-dim:    #7b8eaa;
+    --white:       #ffffff;
+    --border:      rgba(15,32,68,0.12);
+    --border-soft: rgba(15,32,68,0.06);
+  }
+
+  *, *::before, *::after { margin: 0; padding: 0; box-sizing: border-box; }
+  html { scroll-behavior: smooth; }
+
+  body {
+    background: var(--bg);
+    color: var(--text);
+    font-family: 'DM Sans', sans-serif;
+    font-weight: 300;
+    overflow-x: hidden;
+  }
+
+  /* NAV */
+  nav {
+    position: fixed;
+    top: 0; left: 0; right: 0;
+    z-index: 100;
+    padding: 1.3rem 4rem;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    background: rgba(255,255,255,0.96);
+    backdrop-filter: blur(10px);
+    border-bottom: 1px solid var(--border-soft);
+  }
+  .nav-logo {
+    font-family: 'Cormorant Garamond', serif;
+    font-size: 1.05rem;
+    letter-spacing: 0.22em;
+    color: var(--navy);
+    text-transform: uppercase;
+    font-weight: 600;
+  }
+  .nav-links { display: flex; gap: 2.5rem; list-style: none; }
+  .nav-links a {
+    color: var(--text-dim);
+    text-decoration: none;
+    font-size: 0.73rem;
+    letter-spacing: 0.18em;
+    text-transform: uppercase;
+    transition: color 0.3s;
+  }
+  .nav-links a:hover { color: var(--navy); }
+
+  /* HERO */
+  .hero {
+    min-height: 100vh;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    text-align: center;
+    padding: 8rem 2rem 6rem;
+    background: var(--bg-navy);
+    position: relative;
+    overflow: hidden;
+  }
+  .hero::before {
+    content: '';
+    position: absolute;
+    inset: 0;
+    background: radial-gradient(ellipse 80% 60% at 50% 30%, rgba(255,255,255,0.04) 0%, transparent 65%);
+    pointer-events: none;
+  }
+  .hero::after {
+    content: '';
+    position: absolute;
+    inset: 0;
+    background-image:
+      linear-gradient(rgba(255,255,255,0.025) 1px, transparent 1px),
+      linear-gradient(90deg, rgba(255,255,255,0.025) 1px, transparent 1px);
+    background-size: 60px 60px;
+    pointer-events: none;
+  }
+  .hero-eyebrow {
+    font-size: 0.68rem;
+    letter-spacing: 0.42em;
+    text-transform: uppercase;
+    color: rgba(255,255,255,0.45);
+    margin-bottom: 2rem;
+    opacity: 0;
+    animation: fadeUp 1s 0.2s forwards;
+    position: relative; z-index: 1;
+  }
+  .hero-name {
+    font-family: 'Cormorant Garamond', serif;
+    font-size: clamp(4.5rem, 11vw, 9.5rem);
+    font-weight: 300;
+    line-height: 0.9;
+    color: #ffffff;
+    opacity: 0;
+    animation: fadeUp 1s 0.4s forwards;
+    position: relative; z-index: 1;
+  }
+  .hero-name span {
+    display: block;
+    font-style: italic;
+    color: rgba(255,255,255,0.55);
+  }
+  .hero-title {
+    font-family: 'Cormorant Garamond', serif;
+    font-size: clamp(1rem, 2.2vw, 1.5rem);
+    font-weight: 300;
+    letter-spacing: 0.32em;
+    text-transform: uppercase;
+    color: rgba(255,255,255,0.5);
+    margin-top: 1.8rem;
+    opacity: 0;
+    animation: fadeUp 1s 0.6s forwards;
+    position: relative; z-index: 1;
+  }
+  .hero-tagline {
+    max-width: 460px;
+    font-size: 0.95rem;
+    line-height: 1.85;
+    color: rgba(255,255,255,0.5);
+    margin-top: 1.8rem;
+    opacity: 0;
+    animation: fadeUp 1s 0.8s forwards;
+    position: relative; z-index: 1;
+  }
+  .hero-divider {
+    width: 1px;
+    height: 70px;
+    background: linear-gradient(to bottom, rgba(255,255,255,0.3), transparent);
+    margin-top: 3.5rem;
+    opacity: 0;
+    animation: fadeUp 1s 1s forwards;
+    position: relative; z-index: 1;
+  }
+  .hero-stats {
+    display: flex;
+    gap: 4rem;
+    margin-top: 3rem;
+    opacity: 0;
+    animation: fadeUp 1s 1.1s forwards;
+    position: relative; z-index: 1;
+  }
+  .stat { text-align: center; }
+  .stat-num {
+    font-family: 'Cormorant Garamond', serif;
+    font-size: 2.4rem;
+    font-weight: 600;
+    color: #ffffff;
+    line-height: 1;
+  }
+  .stat-label {
+    font-size: 0.62rem;
+    letter-spacing: 0.2em;
+    text-transform: uppercase;
+    color: rgba(255,255,255,0.4);
+    margin-top: 0.4rem;
+  }
+
+  /* SECTIONS */
+  section { padding: 7rem 0; }
+  .container { max-width: 1100px; margin: 0 auto; padding: 0 4rem; }
+
+  .section-label {
+    font-size: 0.62rem;
+    letter-spacing: 0.42em;
+    text-transform: uppercase;
+    color: var(--text-dim);
+    margin-bottom: 0.7rem;
+  }
+  .section-title {
+    font-family: 'Cormorant Garamond', serif;
+    font-size: clamp(2.4rem, 4vw, 3.5rem);
+    font-weight: 300;
+    color: var(--navy);
+    line-height: 1.1;
+  }
+  .section-title em { font-style: italic; color: var(--navy-mid); opacity: 0.7; }
+  .navy-line {
+    width: 48px;
+    height: 2px;
+    background: var(--navy);
+    opacity: 0.2;
+    margin: 1.2rem 0 3rem;
+  }
+
+  /* ABOUT */
+  .about-grid {
+    display: grid;
+    grid-template-columns: 1.1fr 0.9fr;
+    gap: 5rem;
+    align-items: start;
+  }
+  .about-text p {
+    font-size: 0.97rem;
+    line-height: 1.9;
+    color: var(--text-mid);
+    margin-bottom: 1.2rem;
+  }
+  .about-text p strong { color: var(--navy); font-weight: 500; }
+  .about-industries { margin-top: 2rem; }
+  .about-industries h4 {
+    font-size: 0.62rem;
+    letter-spacing: 0.3em;
+    text-transform: uppercase;
+    color: var(--text-dim);
+    margin-bottom: 0.9rem;
+  }
+  .tags { display: flex; flex-wrap: wrap; gap: 0.5rem; }
+  .tag {
+    border: 1px solid var(--border);
+    padding: 0.38rem 0.95rem;
+    font-size: 0.73rem;
+    color: var(--text-mid);
+    border-radius: 2px;
+    background: var(--bg-alt);
+    transition: all 0.3s;
+  }
+  .tag:hover { border-color: var(--navy); color: var(--navy); background: var(--beige); }
+
+  .about-metrics { display: flex; flex-direction: column; gap: 1rem; }
+  .metric-card {
+    background: var(--bg-alt);
+    border: 1px solid var(--border-soft);
+    border-left: 3px solid var(--navy);
+    padding: 1.4rem 1.8rem;
+    border-radius: 3px;
+  }
+  .metric-num {
+    font-family: 'Cormorant Garamond', serif;
+    font-size: 2.6rem;
+    font-weight: 600;
+    color: var(--navy);
+    line-height: 1;
+  }
+  .metric-label { font-size: 0.73rem; color: var(--text-dim); margin-top: 0.3rem; }
+
+  /* WORK */
+  .work-bg { background: var(--bg-alt); }
+
+  .project-card {
+    background: var(--white);
+    border: 1px solid var(--border);
+    border-radius: 4px;
+    overflow: hidden;
+    margin-bottom: 2rem;
+    transition: box-shadow 0.3s, border-color 0.3s;
+  }
+  .project-card:hover {
+    box-shadow: 0 8px 40px rgba(15,32,68,0.09);
+    border-color: rgba(15,32,68,0.22);
+  }
+  .project-header {
+    padding: 2.2rem 2.8rem;
+    background: var(--bg-navy);
+    display: flex;
+    align-items: flex-start;
+    gap: 2rem;
+  }
+  .project-number {
+    font-family: 'Cormorant Garamond', serif;
+    font-size: 4rem;
+    font-weight: 300;
+    color: rgba(255,255,255,0.09);
+    line-height: 1;
+    flex-shrink: 0;
+  }
+  .project-info { flex: 1; }
+  .project-role {
+    font-size: 0.62rem;
+    letter-spacing: 0.32em;
+    text-transform: uppercase;
+    color: rgba(255,255,255,0.45);
+    margin-bottom: 0.5rem;
+  }
+  .project-name {
+    font-family: 'Cormorant Garamond', serif;
+    font-size: 1.9rem;
+    font-weight: 400;
+    color: #ffffff;
+    line-height: 1.2;
+  }
+  .project-platforms { display: flex; gap: 0.5rem; margin-top: 0.8rem; flex-wrap: wrap; }
+  .platform {
+    font-size: 0.62rem;
+    letter-spacing: 0.12em;
+    text-transform: uppercase;
+    color: rgba(255,255,255,0.45);
+    border: 1px solid rgba(255,255,255,0.16);
+    padding: 0.22rem 0.65rem;
+    border-radius: 2px;
+  }
+  .project-body {
+    padding: 2.2rem 2.8rem;
+    display: grid;
+    grid-template-columns: 1.2fr 1fr;
+    gap: 3rem;
+  }
+  .project-deliverables h4, .project-approach h4 {
+    font-size: 0.62rem;
+    letter-spacing: 0.3em;
+    text-transform: uppercase;
+    color: var(--text-dim);
+    margin-bottom: 1.1rem;
+  }
+  .deliverable-list { list-style: none; }
+  .deliverable-list li {
+    font-size: 0.88rem;
+    color: var(--text-mid);
+    line-height: 1.7;
+    padding: 0.45rem 0;
+    border-bottom: 1px solid var(--border-soft);
+    display: flex;
+    gap: 0.8rem;
+  }
+  .deliverable-list li::before {
+    content: '→';
+    color: var(--navy);
+    opacity: 0.4;
+    flex-shrink: 0;
+    font-size: 0.78rem;
+  }
+  .approach-pills { display: flex; flex-direction: column; gap: 0.55rem; }
+  .approach-pill {
+    background: var(--bg-alt);
+    border: 1px solid var(--border);
+    padding: 0.6rem 1.1rem;
+    font-size: 0.78rem;
+    color: var(--text-mid);
+    border-radius: 2px;
+  }
+
+  /* PROCESS */
+  .process-grid {
+    display: grid;
+    grid-template-columns: repeat(5, 1fr);
+    border: 1px solid var(--border);
+    border-radius: 4px;
+    overflow: hidden;
+  }
+  .process-step {
+    padding: 2.2rem 1.6rem;
+    border-right: 1px solid var(--border);
+    transition: background 0.3s;
+  }
+  .process-step:last-child { border-right: none; }
+  .process-step:hover { background: var(--beige); }
+  .step-num {
+    font-family: 'Cormorant Garamond', serif;
+    font-size: 3.2rem;
+    font-weight: 300;
+    color: rgba(15,32,68,0.09);
+    line-height: 1;
+    margin-bottom: 1.2rem;
+  }
+  .step-title {
+    font-size: 0.7rem;
+    letter-spacing: 0.18em;
+    text-transform: uppercase;
+    color: var(--navy);
+    font-weight: 500;
+    margin-bottom: 0.5rem;
+  }
+  .step-desc { font-size: 0.8rem; line-height: 1.7; color: var(--text-dim); }
+
+  /* RESULTS */
+  .results-row {
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+    gap: 1.2rem;
+    margin-top: 2rem;
+  }
+  .result-card {
+    background: var(--white);
+    border: 1px solid var(--border);
+    border-top: 3px solid var(--navy);
+    padding: 2rem 1.4rem;
+    border-radius: 3px;
+    text-align: center;
+    transition: transform 0.3s, box-shadow 0.3s;
+  }
+  .result-card:hover { transform: translateY(-4px); box-shadow: 0 10px 30px rgba(15,32,68,0.08); }
+  .result-num {
+    font-family: 'Cormorant Garamond', serif;
+    font-size: 2.8rem;
+    font-weight: 600;
+    color: var(--navy);
+    line-height: 1;
+  }
+  .result-unit { font-family: 'Cormorant Garamond', serif; font-size: 1.5rem; color: var(--navy); opacity: 0.5; }
+  .result-label {
+    font-size: 0.67rem;
+    letter-spacing: 0.18em;
+    text-transform: uppercase;
+    color: var(--text-dim);
+    margin-top: 0.5rem;
+  }
+
+  /* TESTIMONIALS */
+  .testimonials-grid {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 1.2rem;
+  }
+  .testimonial-card {
+    background: var(--white);
+    border: 1px solid var(--border);
+    border-radius: 4px;
+    padding: 2rem;
+    transition: box-shadow 0.3s, transform 0.3s;
+  }
+  .testimonial-card:hover { box-shadow: 0 8px 30px rgba(15,32,68,0.07); transform: translateY(-3px); }
+  .quote-mark {
+    font-family: 'Cormorant Garamond', serif;
+    font-size: 4.5rem;
+    line-height: 0.5;
+    color: rgba(15,32,68,0.09);
+    margin-bottom: 1.2rem;
+    display: block;
+  }
+  .testimonial-text { font-size: 0.88rem; line-height: 1.8; color: var(--text-mid); font-style: italic; }
+  .testimonial-source {
+    font-size: 0.62rem;
+    letter-spacing: 0.2em;
+    text-transform: uppercase;
+    color: var(--text-dim);
+    margin-top: 1.1rem;
+    border-top: 1px solid var(--border-soft);
+    padding-top: 0.9rem;
+  }
+
+  /* CTA */
+  .cta {
+    background: var(--bg-navy);
+    text-align: center;
+    padding: 8rem 2rem;
+    position: relative;
+    overflow: hidden;
+  }
+  .cta::before {
+    content: '';
+    position: absolute; inset: 0;
+    background-image:
+      linear-gradient(rgba(255,255,255,0.02) 1px, transparent 1px),
+      linear-gradient(90deg, rgba(255,255,255,0.02) 1px, transparent 1px);
+    background-size: 60px 60px;
+    pointer-events: none;
+  }
+  .cta-title {
+    font-family: 'Cormorant Garamond', serif;
+    font-size: clamp(2.5rem, 5vw, 4.5rem);
+    font-weight: 300;
+    color: #ffffff;
+    margin-bottom: 1rem;
+    position: relative;
+  }
+  .cta-title em { font-style: italic; color: rgba(255,255,255,0.55); }
+  .cta-sub { font-size: 0.92rem; color: rgba(255,255,255,0.45); margin-bottom: 3rem; position: relative; }
+  .btn {
+    display: inline-block;
+    padding: 1rem 2.8rem;
+    background: var(--white);
+    color: var(--navy);
+    text-decoration: none;
+    font-size: 0.75rem;
+    letter-spacing: 0.25em;
+    text-transform: uppercase;
+    font-weight: 500;
+    border-radius: 2px;
+    transition: background 0.3s, transform 0.2s, box-shadow 0.3s;
+    position: relative;
+  }
+  .btn:hover { background: var(--beige); transform: translateY(-2px); box-shadow: 0 8px 30px rgba(0,0,0,0.2); }
+
+  /* FOOTER */
+  footer {
+    background: var(--bg-navy);
+    border-top: 1px solid rgba(255,255,255,0.06);
+    padding: 2.2rem 4rem;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+  }
+  .footer-name {
+    font-family: 'Cormorant Garamond', serif;
+    font-size: 1rem;
+    letter-spacing: 0.2em;
+    color: rgba(255,255,255,0.65);
+    text-transform: uppercase;
+  }
+  .footer-copy { font-size: 0.7rem; color: rgba(255,255,255,0.3); letter-spacing: 0.1em; }
+
+  /* ANIMATIONS */
+  @keyframes fadeUp {
+    from { opacity: 0; transform: translateY(22px); }
+    to   { opacity: 1; transform: translateY(0); }
+  }
+  .reveal {
+    opacity: 0;
+    transform: translateY(28px);
+    transition: opacity 0.75s ease, transform 0.75s ease;
+  }
+  .reveal.visible { opacity: 1; transform: translateY(0); }
+
+  /* RESPONSIVE */
+  @media (max-width: 900px) {
+    nav { padding: 1.2rem 1.5rem; }
+    .nav-links { display: none; }
+    .container { padding: 0 1.5rem; }
+    .about-grid { grid-template-columns: 1fr; gap: 3rem; }
+    .project-body { grid-template-columns: 1fr; gap: 2rem; }
+    .project-header { flex-direction: column; }
+    .process-grid { grid-template-columns: 1fr 1fr; }
+    .testimonials-grid { grid-template-columns: 1fr; }
+    .results-row { grid-template-columns: 1fr 1fr; }
+    footer { flex-direction: column; gap: 1rem; text-align: center; }
+    .hero-stats { gap: 2rem; flex-wrap: wrap; justify-content: center; }
+  }
+</style>
+</head>
+<body>
+
+<!-- NAV -->
+<nav>
+  <div class="nav-logo">Darasimi Williams</div>
+  <ul class="nav-links">
+    <li><a href="#about">About</a></li>
+    <li><a href="#work">Work</a></li>
+    <li><a href="#process">Process</a></li>
+    <li><a href="#results">Results</a></li>
+    <li><a href="#contact">Contact</a></li>
+  </ul>
+</nav>
+
+<!-- HERO -->
+<section class="hero">
+  <div class="hero-eyebrow">Content Strategy · Brand Storytelling</div>
+  <h1 class="hero-name">
+    Williams<br>
+    <span>Darasimi</span>
+  </h1>
+  <div class="hero-title">Content Strategist</div>
+  <p class="hero-tagline">Helping brands grow through strategic content and storytelling — with clarity, intention, and impact.</p>
+  <div class="hero-divider"></div>
+  <div class="hero-stats">
+    <div class="stat">
+      <div class="stat-num">86K+</div>
+      <div class="stat-label">Views Generated</div>
+    </div>
+    <div class="stat">
+      <div class="stat-num">17×</div>
+      <div class="stat-label">View Growth</div>
+    </div>
+    <div class="stat">
+      <div class="stat-num">9,986</div>
+      <div class="stat-label">Engagements</div>
+    </div>
+    <div class="stat">
+      <div class="stat-num">318%</div>
+      <div class="stat-label">Follower Growth</div>
+    </div>
+  </div>
+</section>
+
+<!-- ABOUT -->
+<section id="about">
+  <div class="container">
+    <div class="reveal">
+      <div class="section-label">About</div>
+      <h2 class="section-title">Strategic content that<br><em>moves people to act</em></h2>
+      <div class="navy-line"></div>
+    </div>
+    <div class="about-grid">
+      <div class="about-text reveal">
+        <p>I am a Content Strategist focused on helping brands grow through <strong>strategic content and storytelling</strong>. I specialize in positioning brands clearly, creating intentional content, and building systems that help brands connect with their audience and communicate their value effectively.</p>
+        <p>I have worked across industries including <strong>healthcare, fashion, and real estate</strong>, managing content direction and supporting brand growth through structured and audience-focused content.</p>
+        <p>My approach isn't just creative — it's systematic. Every piece of content is rooted in a clear goal, designed to serve the audience, and built to reinforce the brand's authority.</p>
+        <div class="about-industries">
+          <h4>Industries</h4>
+          <div class="tags">
+            <span class="tag">Healthcare</span>
+            <span class="tag">Fashion</span>
+            <span class="tag">Real Estate</span>
+            <span class="tag">B2B</span>
+            <span class="tag">Personal Brand</span>
+            <span class="tag">Marketplace</span>
+          </div>
+        </div>
+      </div>
+      <div class="about-metrics reveal">
+        <div class="metric-card">
+          <div class="metric-num">5.5K</div>
+          <div class="metric-label">Views on a single viral post — 24% above average</div>
+        </div>
+        <div class="metric-card">
+          <div class="metric-num">127</div>
+          <div class="metric-label">LinkedIn actions in one week (goal was 3)</div>
+        </div>
+        <div class="metric-card">
+          <div class="metric-num">114%</div>
+          <div class="metric-label">Growth in unique profile visitors in 30 days</div>
+        </div>
+        <div class="metric-card">
+          <div class="metric-num">33×</div>
+          <div class="metric-label">Engagement increase over 28 days</div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- WORK -->
+<section id="work" class="work-bg">
+  <div class="container">
+    <div class="reveal">
+      <div class="section-label">Case Studies</div>
+      <h2 class="section-title">Selected <em>Work</em></h2>
+      <div class="navy-line"></div>
+    </div>
+
+    <div class="project-card reveal">
+      <div class="project-header">
+        <div class="project-number">01</div>
+        <div class="project-info">
+          <div class="project-role">Operations Manager & Content Strategist</div>
+          <div class="project-name">Africa Medical Marketplace (AMP)</div>
+          <div class="project-platforms">
+            <span class="platform">LinkedIn</span>
+            <span class="platform">Instagram</span>
+            <span class="platform">Facebook</span>
+          </div>
+        </div>
+      </div>
+      <div class="project-body">
+        <div class="project-deliverables">
+          <h4>What I Did</h4>
+          <ul class="deliverable-list">
+            <li>Developed a full content strategy for a healthcare marketplace operating across Africa</li>
+            <li>Created B2B-focused content to communicate market opportunities to industry stakeholders</li>
+            <li>Managed brand communication and participated in international meetings</li>
+            <li>Ensured consistent brand messaging across all platforms</li>
+            <li>Built authority-driven content to position AMP as a credible industry player</li>
+          </ul>
+        </div>
+        <div class="project-approach">
+          <h4>Content Approach</h4>
+          <div class="approach-pills">
+            <div class="approach-pill">Educational + Insight-Driven Content</div>
+            <div class="approach-pill">Industry Positioning & Thought Leadership</div>
+            <div class="approach-pill">Authority-Building Posts</div>
+            <div class="approach-pill">B2B Stakeholder Communication</div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <div class="project-card reveal">
+      <div class="project-header">
+        <div class="project-number">02</div>
+        <div class="project-info">
+          <div class="project-role">Content Strategist — Social Media</div>
+          <div class="project-name">Lopez Designs</div>
+          <div class="project-platforms">
+            <span class="platform">TikTok</span>
+            <span class="platform">Instagram</span>
+            <span class="platform">Facebook</span>
+          </div>
+        </div>
+      </div>
+      <div class="project-body">
+        <div class="project-deliverables">
+          <h4>What I Did</h4>
+          <ul class="deliverable-list">
+            <li>Created engaging fashion content aligned with current trends and audience preferences</li>
+            <li>Strengthened brand identity through consistent visual and narrative storytelling</li>
+            <li>Developed relatable, audience-focused content ideas that drove genuine connection</li>
+            <li>Built a content rhythm that kept the brand present and relevant in a competitive space</li>
+          </ul>
+        </div>
+        <div class="project-approach">
+          <h4>Content Approach</h4>
+          <div class="approach-pills">
+            <div class="approach-pill">Trend-Based Content Creation</div>
+            <div class="approach-pill">Visual Storytelling</div>
+            <div class="approach-pill">Audience Connection & Relatability</div>
+            <div class="approach-pill">Fashion & Lifestyle Branding</div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <div class="project-card reveal">
+      <div class="project-header">
+        <div class="project-number">03</div>
+        <div class="project-info">
+          <div class="project-role">Content Strategist — Personal Brand</div>
+          <div class="project-name">Real Estate Personal Brand</div>
+          <div class="project-platforms">
+            <span class="platform">LinkedIn</span>
+            <span class="platform">WhatsApp</span>
+          </div>
+        </div>
+      </div>
+      <div class="project-body">
+        <div class="project-deliverables">
+          <h4>What I Did</h4>
+          <ul class="deliverable-list">
+            <li>Developed authority-building content to position the brand as a trusted real estate voice</li>
+            <li>Structured messaging to attract, educate, and nurture potential clients</li>
+            <li>Positioned the brand as knowledgeable, approachable, and trustworthy</li>
+            <li>Designed content that converted awareness into genuine leads and inquiries</li>
+          </ul>
+        </div>
+        <div class="project-approach">
+          <h4>Content Approach</h4>
+          <div class="approach-pills">
+            <div class="approach-pill">Educational Content Strategy</div>
+            <div class="approach-pill">Personal Brand Storytelling</div>
+            <div class="approach-pill">Lead-Focused Messaging</div>
+            <div class="approach-pill">Trust & Authority Building</div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+  </div>
+</section>
+
+<!-- PROCESS -->
+<section id="process">
+  <div class="container">
+    <div class="reveal">
+      <div class="section-label">Methodology</div>
+      <h2 class="section-title">How I <em>Work</em></h2>
+      <div class="navy-line"></div>
+    </div>
+    <div class="process-grid reveal">
+      <div class="process-step">
+        <div class="step-num">01</div>
+        <div class="step-title">Understand</div>
+        <div class="step-desc">Deep-dive into the brand, its goals, audience, and competitive landscape.</div>
+      </div>
+      <div class="process-step">
+        <div class="step-num">02</div>
+        <div class="step-title">Define</div>
+        <div class="step-desc">Define clear content direction, voice, tone, and positioning strategy.</div>
+      </div>
+      <div class="process-step">
+        <div class="step-num">03</div>
+        <div class="step-title">Develop</div>
+        <div class="step-desc">Build structured content ideas that serve the audience and the brand's goals.</div>
+      </div>
+      <div class="process-step">
+        <div class="step-num">04</div>
+        <div class="step-title">Create</div>
+        <div class="step-desc">Produce storytelling-driven content that resonates and compels action.</div>
+      </div>
+      <div class="process-step">
+        <div class="step-num">05</div>
+        <div class="step-title">Sustain</div>
+        <div class="step-desc">Maintain consistency and clarity across all channels over time.</div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- RESULTS -->
+<section id="results" class="work-bg">
+  <div class="container">
+    <div class="reveal">
+      <div class="section-label">Proof of Work</div>
+      <h2 class="section-title">Real <em>Results</em></h2>
+      <div class="navy-line"></div>
+    </div>
+    <div class="results-row reveal">
+      <div class="result-card">
+        <div class="result-num">86<span class="result-unit">K</span></div>
+        <div class="result-label">Views in 28 Days</div>
+      </div>
+      <div class="result-card">
+        <div class="result-num">17<span class="result-unit">×</span></div>
+        <div class="result-label">View Growth Rate</div>
+      </div>
+      <div class="result-card">
+        <div class="result-num">318<span class="result-unit">%</span></div>
+        <div class="result-label">Net Follower Growth</div>
+      </div>
+      <div class="result-card">
+        <div class="result-num">33<span class="result-unit">×</span></div>
+        <div class="result-label">Engagement Increase</div>
+      </div>
+    </div>
+    <div class="results-row reveal" style="margin-top:1.2rem">
+      <div class="result-card">
+        <div class="result-num">5.5<span class="result-unit">K</span></div>
+        <div class="result-label">Single Post Views</div>
+      </div>
+      <div class="result-card">
+        <div class="result-num">1,200</div>
+        <div class="result-label">Post Engagements</div>
+      </div>
+      <div class="result-card">
+        <div class="result-num">114<span class="result-unit">%</span></div>
+        <div class="result-label">Unique Visitor Growth</div>
+      </div>
+      <div class="result-card">
+        <div class="result-num">127</div>
+        <div class="result-label">LinkedIn Actions / Week</div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- TESTIMONIALS -->
+<section>
+  <div class="container">
+    <div class="reveal">
+      <div class="section-label">Social Proof</div>
+      <h2 class="section-title">What People <em>Say</em></h2>
+      <div class="navy-line"></div>
+    </div>
+    <div class="testimonials-grid">
+      <div class="testimonial-card reveal">
+        <span class="quote-mark">"</span>
+        <p class="testimonial-text">I love this — it speaks humanity and healthcare. Well done. 💯</p>
+        <div class="testimonial-source">via WhatsApp · AMP Content</div>
+      </div>
+      <div class="testimonial-card reveal">
+        <span class="quote-mark">"</span>
+        <p class="testimonial-text">I over love it — was smiling all through. Well done 💯</p>
+        <div class="testimonial-source">via WhatsApp · Video Content</div>
+      </div>
+      <div class="testimonial-card reveal">
+        <span class="quote-mark">"</span>
+        <p class="testimonial-text">The energy I want 🤞</p>
+        <div class="testimonial-source">via WhatsApp · Content Reaction</div>
+      </div>
+      <div class="testimonial-card reveal">
+        <span class="quote-mark">"</span>
+        <p class="testimonial-text">I love the fact that you keep to time and don't play with your job.</p>
+        <div class="testimonial-source">Client Feedback · Professionalism</div>
+      </div>
+      <div class="testimonial-card reveal">
+        <span class="quote-mark">"</span>
+        <p class="testimonial-text">I really appreciate your engagement on my post. Your support makes it easy to keep showing up 💗</p>
+        <div class="testimonial-source">DM Received · Account Managed by Darasimi</div>
+      </div>
+      <div class="testimonial-card reveal">
+        <span class="quote-mark">"</span>
+        <p class="testimonial-text">This post is getting 24% more views than your typical post — the content is clearly landing.</p>
+        <div class="testimonial-source">Facebook Analytics · March 2025</div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- CTA -->
+<section id="contact" class="cta">
+  <div class="reveal">
+    <h2 class="cta-title">Ready to grow your brand<br>with <em>strategic content?</em></h2>
+    <p class="cta-sub">Let's build something that truly speaks to your audience.</p>
+    <a href="https://wa.me/2348123197891" target="_blank" rel="noopener" class="btn">💬 Message Me on WhatsApp</a>
+  </div>
+</section>
+
+<!-- FOOTER -->
+<footer>
+  <div class="footer-name">Williams Darasimi</div>
+  <div class="footer-copy">Content Strategist · Brand Storytelling · 2025</div>
+</footer>
+
+<script>
+  const reveals = document.querySelectorAll('.reveal');
+  const observer = new IntersectionObserver((entries) => {
+    entries.forEach(entry => {
+      if (entry.isIntersecting) entry.target.classList.add('visible');
+    });
+  }, { threshold: 0.08, rootMargin: '0px 0px -40px 0px' });
+  reveals.forEach(el => observer.observe(el));
+</script>
+</body>
+</html>
